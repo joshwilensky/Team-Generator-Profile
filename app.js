@@ -100,4 +100,18 @@ async function addMoreEmployees() {
         engineerAnswers.email,
         engineerAnswers.githubUsername
       );
+      employeeArray.push(newEngineer);
+      addMoreEmployees();
+      break;
+    case "Intern":
+      const internAnswers = await inquirer.prompt(internQuestions);
+      const newIntern = new Intern(
+        internAnswers.name,
+        internAnswers.id,
+        internAnswers.email,
+        internAnswers.school
+      );
+      employeeArray.push(newIntern);
+      addMoreEmployees();
+      break;
 }
