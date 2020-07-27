@@ -5,6 +5,7 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 const jest = require("jest");
+var phoneFormatter = require("phone-formatter");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -15,7 +16,9 @@ const employeeArray = new Array();
 
 /* Write code to use inquirer to gather information about the development team members,
  and to create objects for each team member (using the correct classes as blueprints!)*/
-const employeeQuestions = [
+const employeeQuestions = [];
+var inquirer = require("inquirer");
+inquirer.prompt([
   { name: "name", message: "Enter the employee's name:", type: "input" },
   { name: "id", message: "Enter the employee's ID:", type: "input" },
   {
@@ -27,8 +30,22 @@ const employeeQuestions = [
       return re.test(email);
     },
   },
+]);
+
+// Manager Questions:
+const managerQuestion = [
+  {
+    name: "officeNumber",
+    message: "Enter the manager's office phone #:",
+    type: "input",
+  },
+  phoneFormatter.format("2125551212", "(NNN) NNN-NNNN"),
 ];
-// After the user has input all employees desired, call the `render` function (required
+
+// Added the manager questions to the employee questions
+const managerEmployeeQuestions = employeeQuestion.concat(managerQuestion);
+
+// After the user has input all employees desired info, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
 

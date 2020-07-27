@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "fs": "0.0.1-security",
+    "google-libphonenumber": "^3.2.10",
     "inquirer": "^7.3.3",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "phone-formatter": "0.0.2"
   },
   "devDependencies": {
     "jest": "^26.1.0"
