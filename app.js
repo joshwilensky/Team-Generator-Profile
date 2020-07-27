@@ -1,3 +1,4 @@
+// DEPENDENCIES =================================
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -5,7 +6,6 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 const jest = require("jest");
-var phoneFormatter = require("phone-formatter");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -17,7 +17,7 @@ const employeeArray = new Array();
 /* Write code to use inquirer to gather information about the development team members,
  and to create objects for each team member (using the correct classes as blueprints!)*/
 const employeeQuestions = [];
-var inquirer = require("inquirer");
+
 inquirer.prompt([
   { name: "name", message: "Enter the employee's name:", type: "input" },
   { name: "id", message: "Enter the employee's ID:", type: "input" },
@@ -33,64 +33,68 @@ inquirer.prompt([
 ]);
 
 // Manager Questions:
-const manager = [
+const managerSpecificQuestions = [
   {
     name: "officeNumber",
-    message: "Enter the manager's office phone #:",
+    message: "Enter the manager's office number:",
     type: "input",
+    validate: function (officeNumber) {
+      var z1 = /^[0-9]*$/;
+      return z1.test(officeNumber);
+    },
   },
-  phoneFormatter.format("2125551212", "(NNN) NNN-NNNN"),
 ];
-
 // Added the manager questions to the employee questions
-const managerQuestion = employee.concat(manager);
+const managerQuestions = employeeQuestions.concat(managerSpecificQuestions);
 
 // Added the engineer to the employee questions.
-
-const engineer = [
+const engineerSpecificQuestions = [
   {
-    name: "gitHub",
-    message: "Enter the engineer's GitHub username:",
+    name: "githubUsername",
+    message: "Enter engineer Github Username:",
     type: "input",
   },
 ];
 
 // Add the engineer questions to the employee questions.
-const engineerQuestion = employee.concat(engineer);
+engineerQuestions = employeeQuestions.concat(engineerSpecificQuestions);
 
 // Add the intern questions to the employee questions.
-const intern = [
+const internSpecificQuestions = [
   { name: "school", message: "Enter the intern's school name:", type: "input" },
 ];
 
-const internQuestion = employee.concat(intern);
+internQuestions = employeeQuestions.concat(internSpecificQuestions);
 
 // Add employee questions.
-const employeeQuestions = [
+const typeOfEmployeeQuestions = [
   {
     name: "addEmployee",
-    message: "Choose which position for the new employee:",
+    message: "Choose a position for the new employee:",
     type: "list",
     choices: ["Manager", "Engineer", "Intern", "Don't add anymore employees"],
   },
 ];
 
 async function init() {
-  // Get questions and answers for manager.
-  const managerAnswers = await inquirer.prompt(manager);
-  const addManager = new Manager(
+  //get questions answers for manager
+  const managerAnswers = await inquirer.prompt(managerQuestions);
+  //create a new manager object called groupManager
+  const groupManager = new Manager(
     managerAnswers.name,
     managerAnswers.id,
     managerAnswers.email,
     managerAnswers.officeNumber
   );
-  employeeArray.push(addManager);
+  employeeArray.push(groupManager);
   addMoreEmployees();
+
+  //render employeeArray
 }
 
-// Render employeeArray.
 async function addMoreEmployees() {
-  let addMore = await inquirer.prompt(employeeQuestions);
+  let addMore = await inquirer.prompt(typeOfEmployeeQuestions);
+
   switch (addMore.addEmployee) {
     case "Engineer":
       const engineerAnswers = await inquirer.prompt(engineerQuestions);
@@ -114,7 +118,6 @@ async function addMoreEmployees() {
       employeeArray.push(newIntern);
       addMoreEmployees();
       break;
-
     case "Stop Adding More Employees":
       console.log(employeeArray);
       callRender();
