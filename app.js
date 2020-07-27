@@ -33,7 +33,7 @@ inquirer.prompt([
 ]);
 
 // Manager Questions:
-const managerQuestion = [
+const manager = [
   {
     name: "officeNumber",
     message: "Enter the manager's office phone #:",
@@ -43,7 +43,7 @@ const managerQuestion = [
 ];
 
 // Added the manager questions to the employee questions
-const managerEmployeeQuestions = employeeQuestion.concat(managerQuestion);
+const managerQuestion = employee.concat(manager);
 
 // Added the engineer to the employee questions.
 
@@ -55,6 +55,15 @@ const engineer = [
   },
 ];
 
+// Add the engineer questions to the employee questions.
+const engineerQuestion = employee.concat(engineer);
+
+// Add the intern questions to the employee questions.
+const intern = [
+  { name: "school", message: "Enter intern's school:", type: "input" },
+];
+
+const internQuestion = employee.concat(intern);
 // After the user has input all employees desired info, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
