@@ -114,4 +114,24 @@ async function addMoreEmployees() {
       employeeArray.push(newIntern);
       addMoreEmployees();
       break;
+
+    case "Stop Adding More Employees":
+      console.log(employeeArray);
+      callRender();
+      break;
+    default:
+      console.log("No switch was found");
+      console.log(addMore[0]);
+      break;
+  }
 }
+
+function callRender() {
+  const newHTML = render(employeeArray);
+  console.log(newHTML);
+  fs.writeFile(outputPath, newHTML, (err) => {
+    console.log(err);
+  });
+}
+//run app.js
+init();
