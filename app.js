@@ -60,10 +60,20 @@ const engineerQuestion = employee.concat(engineer);
 
 // Add the intern questions to the employee questions.
 const intern = [
-  { name: "school", message: "Enter intern's school:", type: "input" },
+  { name: "school", message: "Enter the intern's school name:", type: "input" },
 ];
 
 const internQuestion = employee.concat(intern);
+
+// Add employee questions.
+const employeeQuestions = [
+  {
+    name: "addEmployee",
+    message: "Choose which position for the new employee:",
+    type: "list",
+    choices: ["Manager", "Engineer", "Intern", "Stop Adding More Employees"],
+  },
+];
 // After the user has input all employees desired info, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
