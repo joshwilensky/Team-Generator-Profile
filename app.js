@@ -12,7 +12,7 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
-// READFILE ASYNC DEPENDENCY
+// READ FILE ASYNC DEPENDENCY
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
 
@@ -27,112 +27,142 @@ function newTeamMember(reply) {
             type: "confirm",
             message: "Do you want to add another team member?",
             name: "continue",
-        }, ]) {
-            name: "id",
-            message: "Enter the employee's ID:",
-            type: "input"
-        }, {
-            name: "email",
-            message: "Enter the employee's e-mail address:",
-            type: "input",
-
-        }, ];
-
-// Manager Questions:
-const managerSetQuestions = [{
-    name: "officeNumber",
-    message: "Enter the manager's office number:",
-    type: "input",
-}, ];
-
-// Add the manager questions to concat with employee questions.
-const managerQuestions = employeeQuestions.concat(managerSetQuestions);
-
-// Add the engineer to the employee questions.
-const engineerSetQuestions = [{
-    name: "githubUsername",
-    message: "Enter engineer Github Username:",
-    type: "input",
-}, ];
-
-// Add the engineer questions to concat with employee questions.
-engineerQuestions = employeeQuestions.concat(engineerSetQuestions);
-
-// Add the intern questions to the employee questions.
-const internSetQuestions = [{
-    name: "school",
-    message: "Enter the intern's school name:",
-    type: "input"
-}, ];
-
-// Add the intern questions to concat with employee questions.
-internQuestions = employeeQuestions.concat(internSetQuestions);
-
-// Add employee questions
-const typeOfEmployeeQuestions = [{
-    name: "addEmployee",
-    message: "Choose a position for the new employee:",
-    type: "list",
-    choices: ["Manager", "Engineer", "Intern", "Don't add anymore employees"],
-}, ];
-
-async function init() {
-    // Get questions & answers for manager
-    const managerAnswers = await inquirer.prompt(managerQuestions);
-    // Create a new manager object called groupManager
-    const groupManager = new Manager(
-        managerAnswers.name,
-        managerAnswers.id,
-        managerAnswers.email,
-        managerAnswers.officeNumber
-    );
-    //render employeeArray
-    employeeArray.push(groupManager);
-    addMoreEmployees();
+        }, ])
+        .then(function (userConfirm) {
+            if (userConfirm.continue === true) {
+                userPrompt();
+                //render HTML function here
+            } else {
+                console.log(teamMembers);
+                combineFiles();
+            }
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
 }
 
-async function addMoreEmployees() {
-    let addMore = await inquirer.prompt(typeOfEmployeeQuestions);
+function userPrompt(response) {
+    return inquirer
+        .prompt([{
+            type: "list",
+            message: "What type of team member would you like to add?",
+            name: "role",
+            choices: ["Manager", "Engineer", "Intern"],
+        }, ])
+        .then(function (reply) {
+            if (reply.role === "Manager") {
+                inquirer
+                    .prompt([{
+                            type: "input",
+                            message: "What is the name of the team member?",
+                            name: "name",
+                        },
+                        {
+                            type: "input",
+                            message: "What is the id of the team member?",
+                            name: "id",
+                        },
+                        {
+                            type: "input",
+                            message: "What is the email of the team member?",
+                            name: "email",
+                        },
+                        {
+                            type: "input",
+                            message: "What is the office number of the manager?",
+                            name: "officeNumber",
+                        },
+                    ])
+                    .then(function (managerReply) {
+                        let newManager = new Manager(
+                            managerReply.name,
+                            managerReply.id,
+                            managerReply.email,
+                            managerReply.officeNumber
+                        );
+                        teamMembers.push(newManager);
+                        newTeamMember();
+                    });
+            } else if (reply.role === "Engineer") {
+                inquirer
+                    .prompt([{
+                            type: "input",
+                            message: "What is the name of the team member?",
+                            name: "name",
+                        },
+                        {
+                            type: "input",
+                            message: "What is the id of the team member?",
+                            name: "id",
+                        },
+                        {
+                            type: "input",
+                            message: "What is the email of the team member?",
+                            name: "email",
+                        },
+                        {
+                            type: "input",
+                            message: "What is the Github username?",
+                            name: "github",
+                        },
+                    ])
+                    .then(function (engineerReply) {
+                        let newEngineer = new Engineer(
+                            engineerReply.name,
+                            engineerReply.id,
+                            engineerReply.email,
+                            engineerReply.github
+                        );
+                        teamMembers.push(newEngineer);
+                        newTeamMember();
+                    });
+            } else if (reply.role === "Intern") {
+                inquirer
+                    .prompt([{
+                            type: "input",
+                            message: "What is the name of the team member?",
+                            name: "name",
+                        },
+                        {
+                            type: "input",
+                            message: "What is the id of the team member?",
+                            name: "id",
+                        },
+                        {
+                            type: "input",
+                            message: "What is the email of the team member?",
+                            name: "email",
+                        },
+                        {
+                            type: "input",
+                            message: "Which school did you attend?",
+                            name: "school",
+                        },
+                    ])
+                    .then(function (internReply) {
+                        let newIntern = new Intern(
+                            internReply.name,
+                            internReply.id,
+                            internReply.email,
+                            internReply.school
+                        );
+                        teamMembers.push(newIntern);
+                        newTeamMember();
+                    });
+            }
+        });
+}
+userPrompt();
 
-    switch (addMore.addEmployee) {
-        case "Engineer":
-            const engineerAnswers = await inquirer.prompt(engineerQuestions);
-            const newEngineer = new Engineer(
-                engineerAnswers.name,
-                engineerAnswers.id,
-                engineerAnswers.email,
-                engineerAnswers.githubUsername
-            );
-            employeeArray.push(newEngineer);
-            addMoreEmployees();
-            break;
-        case "Intern":
-            const internAnswers = await inquirer.prompt(internQuestions);
-            const newIntern = new Intern(
-                internAnswers.name,
-                internAnswers.id,
-                internAnswers.email,
-                internAnswers.school
-            );
-            employeeArray.push(newIntern);
-            addMoreEmployees();
-            break;
-        case "Don't add more employees!":
-            console.log(employeeArray);
-            callRender();
-            break;
-        default:
-            console.log("You're done!");
-            break;
+//FUNCTION TO READ ALL FILES AND WRITE TO RENDER HTML
+
+function combineFiles() {
+    let teamRender = render(teamMembers);
+    //read each employee type file
+    try {
+        writeFileAsync(outputPath, teamRender);
+    } catch (err) {
+        console.log;
     }
 }
-
-function callRender() {
-    const teamHTML = render(employeeArray);
-    console.log(teamHTML);
-    fs.writeFile(outputPath, teamHTML, (err) => {
-        console.log(err);
-    });
-}
-//run app.js
-init();
