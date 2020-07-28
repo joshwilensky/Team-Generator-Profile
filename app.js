@@ -16,9 +16,8 @@ const employeeArray = new Array();
 
 /* Write code to use inquirer to gather information about the development team members,
  and to create objects for each team member (using the correct classes as blueprints!)*/
-const employeeQuestions = [];
 
-inquirer.prompt([{
+const employeeQuestions = [{
         name: "name",
         message: "Enter the employee's name:",
         type: "input"
@@ -30,46 +29,39 @@ inquirer.prompt([{
     },
     {
         name: "email",
-        message: "Enter the employee's e-mail:",
+        message: "Enter the employee's e-mail address:",
         type: "input",
-        validate: function (email) {
-            var re = /\S+@\S+\.\S+/;
-            return re.test(email);
-        },
+
     },
-]);
+];
 
 // Manager Questions:
-const managerSpecificQuestions = [{
+const managerSetQuestions = [{
     name: "officeNumber",
     message: "Enter the manager's office number:",
     type: "input",
-    validate: function (officeNumber) {
-        var z1 = /^[0-9]*$/;
-        return z1.test(officeNumber);
-    },
 }, ];
 // Added the manager questions to the employee questions
-const managerQuestions = employeeQuestions.concat(managerSpecificQuestions);
+const managerQuestions = employeeQuestions.concat(managerSetQuestions);
 
 // Added the engineer to the employee questions.
-const engineerSpecificQuestions = [{
+const engineerSetQuestions = [{
     name: "githubUsername",
     message: "Enter engineer Github Username:",
     type: "input",
 }, ];
 
 // Add the engineer questions to the employee questions.
-engineerQuestions = employeeQuestions.concat(engineerSpecificQuestions);
+engineerQuestions = employeeQuestions.concat(engineerSetQuestions);
 
 // Add the intern questions to the employee questions.
-const internSpecificQuestions = [{
+const internSetQuestions = [{
     name: "school",
     message: "Enter the intern's school name:",
     type: "input"
 }, ];
 
-internQuestions = employeeQuestions.concat(internSpecificQuestions);
+internQuestions = employeeQuestions.concat(internSetQuestions);
 
 // Add employee questions.
 const typeOfEmployeeQuestions = [{
@@ -80,7 +72,7 @@ const typeOfEmployeeQuestions = [{
 }, ];
 
 async function init() {
-    //get questions answers for manager
+    // Get questions & answers for manager
     const managerAnswers = await inquirer.prompt(managerQuestions);
     //create a new manager object called groupManager
     const groupManager = new Manager(
@@ -121,13 +113,12 @@ async function addMoreEmployees() {
             employeeArray.push(newIntern);
             addMoreEmployees();
             break;
-        case "Stop Adding More Employees":
+        case "Don't add more employees!":
             console.log(employeeArray);
             callRender();
             break;
         default:
-            console.log("No switch was found");
-            console.log(addMore[0]);
+            console.log("You're done!");
             break;
     }
 }
