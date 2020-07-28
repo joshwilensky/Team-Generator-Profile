@@ -17,21 +17,21 @@ const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
 
 
-/* Write code to use inquirer to gather information about the development team members,
- and to create objects for each team member (using the correct classes as blueprints!)*/
+/* Write code to use inquirer to gather information about the development employees,
+ and to create objects for each employee (using the correct classes as blueprints!)*/
 const teamMembers = [];
 
 function newTeamMember(reply) {
     return inquirer
         .prompt([{
             type: "confirm",
-            message: "Do you want to add another team member?",
+            message: "Do you want to add another employee?",
             name: "continue",
         }, ])
         .then(function (userConfirm) {
             if (userConfirm.continue === true) {
                 userPrompt();
-                //render HTML function here
+                // Render HTML function here
             } else {
                 console.log(teamMembers);
                 combineFiles();
@@ -46,7 +46,7 @@ function userPrompt(response) {
     return inquirer
         .prompt([{
             type: "list",
-            message: "What type of team member would you like to add?",
+            message: "What type of employee would you like to add?",
             name: "role",
             choices: ["Manager", "Engineer", "Intern"],
         }, ])
@@ -55,22 +55,22 @@ function userPrompt(response) {
                 inquirer
                     .prompt([{
                             type: "input",
-                            message: "What is the name of the team member?",
+                            message: "Enter employee's name:",
                             name: "name",
                         },
                         {
                             type: "input",
-                            message: "What is the id of the team member?",
+                            message: "Create employee's ID#:",
                             name: "id",
                         },
                         {
                             type: "input",
-                            message: "What is the email of the team member?",
+                            message: "Enter employee's e-mail address:",
                             name: "email",
                         },
                         {
                             type: "input",
-                            message: "What is the office number of the manager?",
+                            message: "Enter the office manager's ID#?",
                             name: "officeNumber",
                         },
                     ])
@@ -88,22 +88,22 @@ function userPrompt(response) {
                 inquirer
                     .prompt([{
                             type: "input",
-                            message: "What is the name of the team member?",
+                            message: "Enter employee's name:",
                             name: "name",
                         },
                         {
                             type: "input",
-                            message: "What is the id of the team member?",
+                            message: "Create employee's ID#:",
                             name: "id",
                         },
                         {
                             type: "input",
-                            message: "What is the email of the team member?",
+                            message: "Enter employee's e-mail address:",
                             name: "email",
                         },
                         {
                             type: "input",
-                            message: "What is the Github username?",
+                            message: "Enter employee's GitHub username:",
                             name: "github",
                         },
                     ])
@@ -121,22 +121,22 @@ function userPrompt(response) {
                 inquirer
                     .prompt([{
                             type: "input",
-                            message: "What is the name of the team member?",
+                            message: "Enter employee's name:",
                             name: "name",
                         },
                         {
                             type: "input",
-                            message: "What is the id of the team member?",
+                            message: "Create employee's ID#:",
                             name: "id",
                         },
                         {
                             type: "input",
-                            message: "What is the email of the team member?",
+                            message: "Enter employee's e-mail address:",
                             name: "email",
                         },
                         {
                             type: "input",
-                            message: "Which school did you attend?",
+                            message: "Enter the intern's school name:",
                             name: "school",
                         },
                     ])
@@ -155,8 +155,7 @@ function userPrompt(response) {
 }
 userPrompt();
 
-//FUNCTION TO READ ALL FILES AND WRITE TO RENDER HTML
-
+// Function to read all files and write to render HTML.
 function combineFiles() {
     let teamRender = render(teamMembers);
     //read each employee type file
