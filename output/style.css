@@ -1,31 +1,35 @@
 .jumbotron {
     background-color: rgb(219, 77, 77);
     color: white;
-
+    font-style: bolder;
 }
 
 .card-header {
     background: rgba(7, 115, 223, 0.877);
     color: white;
-
-}
-
-.container-fluid {
-    padding-bottom: 50px;
-
 }
 
 .card {
     box-shadow: 5px 5px 5px grey;
     margin-left: 30px;
     border: 0;
+    margin: 10px;
 }
 
 .container {
     height: auto;
     display: grid;
+    box-sizing: content-box;
+    max-width: fit-content;
+    font-weight: bold;
+    padding-bottom: 2%;
+    padding-top: 2%
 }
 
 .card-body {
     background: rgb(240, 239, 239);
+}
+
+.row {
+    padding-bottom: 10px;
 }
