@@ -10,6 +10,8 @@
 
 ### [Demo Video](#DemoVideo)
 
+### [Screenshots](#Screenshots)
+
 ### [Installation](#Installation)
 
 ### [Usage](#Usage)
@@ -33,6 +35,10 @@ One of the most important aspects of programming is writing code that is readabl
 ### <a name="DemoVideo"></a>Demo Video
 
 https://drive.google.com/file/d/124wI-kf4TDEXuYabOwQNM1QDudOKqtra/view
+
+### <a name="Screenshots"></a>Screenshots
+
+https://github.com/joshwilensky/Team-Generator-Profile/blob/master/MyTeam.png
 
 ### <a name="Installation"></a>Installation
 
