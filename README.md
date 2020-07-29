@@ -6,11 +6,9 @@
 
 ---
 
-### [Screen Sharing Video]
-
 ### [Description](#Description)
 
-### [Screenshots](#Screenshots)
+### [Screenshots - Video](#Screenshots)
 
 ### [Installation](#Installation)
 
