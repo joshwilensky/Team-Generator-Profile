@@ -1,3 +1,5 @@
+![MyTeam](https://user-images.githubusercontent.com/66797344/88754023-a3cad780-d12b-11ea-976c-cf987bb2c9b6.png)
+
 # Team Profile Generator[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
