@@ -8,7 +8,7 @@
 
 ### [Description](#Description)
 
-### [Demo Video](#Screenshots)
+### [Demo Video](#Demo Video)
 
 ### [Installation](#Installation)
 
