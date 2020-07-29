@@ -38,7 +38,7 @@ https://drive.google.com/file/d/124wI-kf4TDEXuYabOwQNM1QDudOKqtra/view
 
 ### <a name="Screenshots"></a>Screenshots
 
-https://github.com/joshwilensky/Team-Generator-Profile/blob/master/MyTeam.png
+https://github.com/joshwilensky/Team-Generator-Profile/blob/master/screenshots/MyTeam.png
 
 ### <a name="Installation"></a>Installation
 
